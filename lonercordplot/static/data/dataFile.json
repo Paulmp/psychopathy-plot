@@ -102,5 +102,9 @@
 	{
 		"name": "milmitt",
 		"coords": [1.6, 2.4]
+	},
+	{
+		"name": "Demoman",
+		"coords": [3.1, 3.9]
 	}
 ]
