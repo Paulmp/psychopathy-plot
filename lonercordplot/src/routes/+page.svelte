@@ -21,19 +21,19 @@
 	});
 
 	function plotData(dataFile: any) {
-		const width = 950;
+		const width = 1050;
 		const height = 750;
 		const margin = { top: 20, right: 30, bottom: 50, left: 50 };
 		const dataLength = dataFile.length;
 		const xScale = d3
 			.scaleLinear()
-			.domain([0, 5])
+			.domain([1, 5])
 			.range([margin.left, width - margin.right]);
 
 		// Declare the y (vertical position) scale.
 		const yScale = d3
 			.scaleLinear()
-			.domain([0, 5])
+			.domain([1, 5])
 			.range([height - margin.bottom, margin.top]);
 		// Create the SVG container.
 		const svg = d3.create('svg').attr('width', width).attr('height', height);
