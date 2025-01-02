@@ -110,5 +110,25 @@
 	{
 		"name": "Quixen",
 		"coords": [2.3, 3.1]
+	},
+	{
+		"name": "Infernihunter",
+		"coords": [1.6, 1.6]
+	},
+	{
+		"name": "geesel",
+		"coords": [3.6, 3.1]
+	},
+	{
+		"name": "nerd",
+		"coords": [2.3, 3.1]
+	},
+	{
+		"name": "Avy Joy",
+		"coords": [1.4, 2.3]
+	},
+	{
+		"name": "Yagrum",
+		"coords": [2.2, 2.5]
 	}
 ]
