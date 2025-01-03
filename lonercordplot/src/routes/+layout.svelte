@@ -8,7 +8,9 @@
 		<img src="/images/LonerBox.png" alt="Lonerbox" class="w-20" />
 		<h1 class="font-mono text-3xl font-bold">Lonercord's Psychopathy Scores</h1>
 	</header>
-	{@render children()}
+
+		{@render children()}
+
 	<footer class="flex w-full items-end justify-center bg-gray-800 p-4 text-center text-white">
 		<p>&copy; 2024 Lonercord Users. All rights reserved.</p>
 	</footer>
