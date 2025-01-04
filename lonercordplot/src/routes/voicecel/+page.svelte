@@ -1,24 +1,52 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
-	import * as d3 from 'd3';
+	import voicecel from '$lib/data/voicecel.json';
+	import Chart from 'chart.js/auto';
 
 	let { data }: { data: PageData } = $props();
 
+
+	function perpareData(voicecelData: any) {
+		let label = [];
+		let userHz = [];
+		for (let i = 0; i < voicecelData.length; i++) {
+			label[i] = voicecelData[i].name;
+			userHz[i] = voicecelData[i].hz;
+		}
+		console.log(label);
+		return { label, userHz };
+	}
+
 	onMount(async () => {
-		const svg = d3.select('#voicecel-plot');
-		svg
-		.append('circle')
-		.attr('cx', '50%')
-		.attr('cy', '50%')
-		.attr('r', 20)
-		.style('fill', 'red');
+
+		const myChart = document.getElementById('myChart');
+		const preparedDate = perpareData(voicecel);
+
+		new Chart(myChart, {
+			type: 'bar',
+			data: {
+				labels: preparedDate.label,
+				datasets: [
+					{
+						label: 'Users',
+						data: preparedDate.userHz,
+						borderWidth: 1
+					}
+				]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
 	});
 </script>
 
-<div class="flex h-full w-full bg-white">
-	<div>
-		<h1>Test</h1>
-		<svg id="voicecel-plot" width="400" height="200"></svg>
-	</div>
+<div>
+	<h2 class="mt-4 text-2xl font-bold text-white">Voicecel Graph</h2>
 </div>
+<canvas id="myChart"></canvas>

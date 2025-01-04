@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
+	import psychopathy from '$lib/data/dataFile.json'
 	import * as d3 from 'd3';
 
 	let dataFile: any;
@@ -9,14 +10,9 @@
 
 	onMount(async () => {
 		const response = await fetch('data/dataFile.json');
-
-		if (!response.ok) {
-			throw new Error(`Failed to fetch JSON: ${response.status} - ${response.statusText}`);
-		}
-
-		const dataFile = await response.json();
+		console.log(psychopathy)
 		const pageElement = document.getElementById('plot');
-		document.querySelector('#plot')?.appendChild(plotData(dataFile));
+		document.querySelector('#plot')?.appendChild(plotData(psychopathy));
 	});
 
 	function plotData(dataFile: any) {
@@ -98,15 +94,7 @@
 	}
 </script>
 
-<div class="animate-slideUpAndFade flex flex-col h-full w-full flex-1 items-center justify-center">
-	<div class="flex h-full w-full flex-1 items-center justify-center">
-		<section
-			class="flex w-11/12 flex-col items-center justify-center rounded-xl border-4 border-black bg-zinc-800 p-0"
-		>
-			<div>
-				<h2 class="mt-4 text-2xl font-bold text-white">Psychopathy Plot</h2>
-			</div>
-			<div class="text-white" id="plot"></div>
-		</section>
-	</div>
+<div>
+	<h2 class="mt-4 text-2xl font-bold text-white">Psychopathy Plot</h2>
 </div>
+<div class="text-white" id="plot"></div>

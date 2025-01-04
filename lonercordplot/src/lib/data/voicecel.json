@@ -1,7 +1,7 @@
 [
     {
         "name": "Zandatsu",
-        "hz": 92
+        "hz": 90
     },
     {
         "name": "Inferni",
@@ -29,11 +29,11 @@
     },
     {
         "name": "Demoman",
-        "hz": 92
+        "hz": 119
     },
     {
-        "name": "Zandatsu",
-        "hz": 261
+        "name": "Ednorton",
+        "hz": 120
     },
     {
         "name": "Ghost",
@@ -62,5 +62,10 @@
     {
         "name": "Pedro",
         "hz": 89
+    }
+    ,
+    {
+        "name": "Yagrum",
+        "hz": 137
     }
 ]
