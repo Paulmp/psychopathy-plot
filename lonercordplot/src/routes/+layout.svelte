@@ -21,7 +21,7 @@
 	>
 		<div class="flex h-full w-full items-center justify-center" style="height: 100%;">
 			<section
-				class="flex w-11/12 flex-col items-center justify-center rounded-xl border-4 border-black bg-zinc-800 p-0"
+				class="flex w-9/12 flex-col items-center justify-center rounded-xl border-4 border-black bg-zinc-800 p-0"
 			>
 				{@render children()}
 			</section>

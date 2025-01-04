@@ -21,7 +21,7 @@
     },
     {
         "name": "Moose",
-        "hz": 109
+        "hz": 110
     },
     {
         "name": "Kraket",
@@ -41,7 +41,7 @@
     },
     {
         "name": "Sandra",
-        "hz": 223
+        "hz": 253
     },
     {
         "name": "NeutralMilk",
@@ -52,20 +52,24 @@
         "hz": 127
     },
     {
-        "name": "Moose",
-        "hz": 109
-    },
-    {
         "name": "Pjoo",
         "hz": 92
     },
     {
         "name": "Pedro",
         "hz": 89
-    }
-    ,
+    },
     {
         "name": "Yagrum",
         "hz": 137
+    },
+    {
+        "name": "ทerd -Ꮤisdøm-🗺",
+        "hz": 124
+    },
+    {
+        "name": "ɐɹpuɐS",
+        "hz": 574
     }
+    
 ]
