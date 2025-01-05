@@ -6,7 +6,6 @@
 
 	let { data }: { data: PageData } = $props();
 
-
 	function perpareData(voicecelData: any) {
 		let label = [];
 		let userHz = [];
@@ -14,12 +13,10 @@
 			label[i] = voicecelData[i].name;
 			userHz[i] = voicecelData[i].hz;
 		}
-		console.log(label);
 		return { label, userHz };
 	}
 
 	onMount(async () => {
-
 		const myChart = document.getElementById('myChart');
 		const preparedDate = perpareData(voicecel);
 
@@ -46,7 +43,5 @@
 	});
 </script>
 
-<div>
-	<h2 class="mt-4 text-2xl font-bold text-white">Voicecel Graph</h2>
-</div>
+<h2 class="mt-4 text-2xl font-bold text-white px-5">Voicecel Graph</h2>
 <canvas id="myChart"></canvas>
