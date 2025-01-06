@@ -33,7 +33,7 @@
     },
     {
         "name": "Ednorton",
-        "hz": 120
+        "hz": 112
     },
     {
         "name": "Ghost",
@@ -74,5 +74,13 @@
     {
         "name": "Emily",
         "hz": 240
+    },
+    {
+        "name": "strongdoctor",
+        "hz": 137
+    },
+    {
+        "name": "strongdoctor",
+        "hz": 137
     }
 ]
