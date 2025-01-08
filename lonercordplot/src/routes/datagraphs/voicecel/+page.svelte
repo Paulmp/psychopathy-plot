@@ -17,17 +17,17 @@
 	}
 
 	onMount(async () => {
-		const preparedDate = perpareData(voicecel);
+		const preparedData = perpareData(voicecel);
 		Chart.register(Colors);
 
 		let currChart = new Chart('myChart', {
 			type: 'bar',
 			data: {
-				labels: preparedDate.label,
+				labels: preparedData.label,
 				datasets: [
 					{
 						label: 'Users',
-						data: preparedDate.userHz,
+						data: preparedData.userHz,
 						borderWidth: 1,
 					}
 				],
