@@ -16,13 +16,19 @@
 		<img src="/images/LonerBox.png" alt="Lonerbox" class="w-20" />
 		<h1 class="font-mono text-3xl font-bold">Lonercord's Datagraphs</h1>
 		<div class="flex flex-row justify-items-center space-x-1 py-3">
-			<div class="rounded-md bg-purple-700 px-3">
+			<div
+				class="flex h-10 items-center justify-center rounded-md bg-purple-700 px-3 py-0 transition-colors duration-300 hover:bg-purple-800"
+			>
 				<a href="/">Home</a>
 			</div>
-			<div class="rounded-md bg-purple-700 px-3">
+			<div
+				class="flex items-center justify-center rounded-md bg-purple-700 px-3 transition-colors duration-300 hover:bg-purple-800"
+			>
 				<a href="/datagraphs/psychopathy">Psychopathy</a>
 			</div>
-			<div class="rounded-md bg-purple-700 px-3">
+			<div
+				class="flex items-center justify-center rounded-md bg-purple-700 px-3 transition-colors duration-300 hover:bg-purple-800"
+			>
 				<a href="/datagraphs/voicecel">Voicecel</a>
 			</div>
 		</div>
