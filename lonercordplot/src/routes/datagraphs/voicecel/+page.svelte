@@ -38,7 +38,16 @@
                         labels: {
                             color: 'white' // Change the color of the legend text
                         }
-                    }
+                    },
+					datalabels: {
+            color: 'white', // Change the color of the numbers
+            font: {
+              size: 14,    // Customize the font size
+              weight: 'bold'
+            },
+            anchor: 'end', // Positioning (start, center, end)
+            align: 'top'   // Alignment (left, center, right, top, bottom)
+          }
                 },
 				scales: {
 					y: {

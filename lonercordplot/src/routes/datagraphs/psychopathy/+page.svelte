@@ -6,15 +6,11 @@
 	import * as d3 from 'd3';
 	import Chart from 'chart.js/auto';
 	import ChartDataLabels from 'chartjs-plugin-datalabels';
-	import { xl } from 'flowbite-svelte';
 
-	let dataFile: any;
-	let nameList: string;
 	let { data }: { data: PageData } = $props();
 
 	onMount(async () => {
-		let dataFile = psychopathy;
-		const preparedData = splitNamesFromData(dataFile);
+		let preparedData = splitNamesFromData(psychopathy);
 		Chart.register(ChartDataLabels);
 		const dataChart = new Chart('myChart', {
 			type: 'scatter',
@@ -28,6 +24,10 @@
 				]
 			},
 			options: {
+				parsing: {
+					xAxisKey: 'x',
+					yAxisKey: 'y'
+				},
 				plugins: {
 					legend: {
 						labels: {
@@ -51,6 +51,14 @@
 						max: 5,
 						ticks: {
 							color: 'white'
+						},
+						title: {
+							display: true,
+							color: 'white',
+							font: {
+								size: 20
+							},
+							text: 'Primary Psychopathy' // X-axis title
 						}
 					},
 					y: {
@@ -59,6 +67,14 @@
 						max: 5,
 						ticks: {
 							color: 'white'
+						},
+						title: {
+							display: true,
+							color: 'white',
+							font: {
+								size: 20
+							},
+							text: 'Secondary Psychopathy' // X-axis title
 						}
 					}
 				}
@@ -70,7 +86,7 @@
 	 * Converts the dataset into objects that have three attributes:
 	 * 1. user - Name of the user
 	 * 2. x - Main Pyschopathy value
-	 * 3. y -
+	 * 3. y - Secondary Psychopathy
 	 * @param dataFile
 	 * @returns The array of names and x and y coordinates of each data entry.
 	 */
@@ -86,10 +102,45 @@
 			};
 			psychopathyValues.push(currUserData);
 		}
+		return mergeUsers(psychopathyValues, getIdenticalValues(psychopathyValues));
+	}
 
-		getIdenticalValues(dataFile);
+	/**
+	 * Removes all duplicates after merging the entries with the same coordinates.
+	 * @param mergedData - Data set with the merged entries.
+	 * @param usersWithIdentCoords - Tuples of entries with the same coordinates.
+	 * @returns - The data set without duplicates.
+	 */
+	function removeDuplicates(
+		mergedData: UserData[],
+		usersWithIdentCoords: [string, string][]
+	): UserData[] {
+		for (let i = 0, j = 0; i < mergedData.length && j < usersWithIdentCoords.length; i++) {
+			if (mergedData[i].user == usersWithIdentCoords[j][1]) {
+				mergedData.splice(i, 1);
+				j++;
+			}
+		}
+		return mergedData;
+	}
 
-		return psychopathyValues;
+	/**
+	 * Makes a deep copy of the original data set.
+	 * @param dataSet - Data set to copy
+	 * @returns - Deep copy of input data set. Type: UserData.
+	 */
+	function parseData(dataSet: UserData[]): UserData[] {
+		let currentElement: UserData;
+		let elements: UserData[] = [];
+		for (let i = 0; i < dataSet.length; i++) {
+			currentElement = {
+				user: structuredClone(dataSet[i].user),
+				x: structuredClone(dataSet[i].x),
+				y: structuredClone(dataSet[i].y)
+			};
+			elements.push(currentElement);
+		}
+		return elements;
 	}
 
 	/**
@@ -97,48 +148,36 @@
 	 * @param dataSet
 	 * @returns - The list of merged names with coordinates.
 	 */
-	function mergeUsers(dataSet: [UserData, UserData][]): UserData[] {
+	function mergeUsers(dataSet: UserData[], usersWithIdentCoords: [string, string][]): UserData[] {
 		let currUserDate: UserData;
-		const mergedUsers: UserData[] = [];
-		for (let i = 0; i < dataSet.length; i++) {
-			currUserDate = {
-				user: dataSet[i][0].user + ' & \n' + dataSet[i][1].user,
-				x: dataSet[i][0].x,
-				y: dataSet[i][0].y
-			};
-			mergedUsers.push(currUserDate);
+		let list = parseData(dataSet);
+
+		for (let i = 0; i < usersWithIdentCoords.length; i++) {
+			for (let j = 0; j < list.length; j++) {
+				if (list[j].user.includes(usersWithIdentCoords[i][0])) {
+					list[j].user = usersWithIdentCoords[i][1] + ' &\n' + list[j].user;
+				}
+			}
 		}
-		return mergedUsers;
+		return removeDuplicates(list, usersWithIdentCoords);
 	}
 
-	/**
-	 * Removes all entries that have the exact same coordinates.
-	 * Returns a list without multiple entries with the same coordinates.
-	 * @param dataSet
-	 * @param sameCoords
-	 */
-	function removeIdenticalValues(dataSet: any[], sameCoords: [UserData, UserData][]) {
-		dataSet.entries
-	}
 	/**
 	 * Checks if multiple users have the same coordinates.
 	 * Returns a list of tuples with the same coordinates.
 	 * @param dataSet - Set of data that contains the names and their psychopathy scores (coordinates).
 	 * @returns - Set of UserData tuples. Each set contains the names and coordinates of the entries with the same coordinates.
 	 */
-	function getIdenticalValues(dataSet: any[]): [UserData, UserData][] {
-		const sameCoords: [UserData, UserData][] = [];
+	function getIdenticalValues(dataSet: UserData[]): [string, string][] {
+		const usersWithSameCoords: [string, string][] = [];
 		for (let i = 0; i < dataSet.length; i++) {
 			for (let j = i + 1; j < dataSet.length; j++) {
-				if (
-					comparator(dataSet[i].coords[0], dataSet[j].coords[0]) &&
-					comparator(dataSet[i].coords[1], dataSet[j].coords[1])
-				) {
-					sameCoords.push([dataSet[i], dataSet[j]]);
+				if (comparator(dataSet[i].x, dataSet[j].x) && comparator(dataSet[i].y, dataSet[j].y)) {
+					usersWithSameCoords.push([dataSet[i].user, dataSet[j].user]);
 				}
 			}
 		}
-		return sameCoords;
+		return usersWithSameCoords;
 	}
 
 	/**
@@ -152,6 +191,6 @@
 	}
 </script>
 
-<h2 class="mt-4 px-5 text-2xl font-bold text-white">Voicecel Graph</h2>
+<h2 class="mt-4 px-5 text-2xl font-bold text-white">Psychopathy Graph</h2>
 <!-- <div class="text-white" id="plot"></div> -->
 <canvas id="myChart" class="p-3"></canvas>
