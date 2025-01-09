@@ -6,13 +6,15 @@
 	import * as d3 from 'd3';
 	import Chart from 'chart.js/auto';
 	import ChartDataLabels from 'chartjs-plugin-datalabels';
+	import { xl } from 'flowbite-svelte';
 
 	let dataFile: any;
 	let nameList: string;
 	let { data }: { data: PageData } = $props();
 
 	onMount(async () => {
-		const preparedData = splitNamesFromData();
+		let dataFile = psychopathy;
+		const preparedData = splitNamesFromData(dataFile);
 		Chart.register(ChartDataLabels);
 		const dataChart = new Chart('myChart', {
 			type: 'scatter',
@@ -20,7 +22,7 @@
 				datasets: [
 					{
 						label: 'Lonercord User',
-						data: preparedData.psychopathyValues,
+						data: preparedData,
 						borderWidth: 1
 					}
 				]
@@ -64,10 +66,17 @@
 		});
 	});
 
-	function splitNamesFromData() {
-		let dataFile = psychopathy;
+	/**
+	 * Converts the dataset into objects that have three attributes:
+	 * 1. user - Name of the user
+	 * 2. x - Main Pyschopathy value
+	 * 3. y -
+	 * @param dataFile
+	 * @returns The array of names and x and y coordinates of each data entry.
+	 */
+	function splitNamesFromData(dataFile: any): UserData[] {
 		let currUserData: UserData;
-		let psychopathyValues = [];
+		let psychopathyValues: UserData[] = [];
 
 		for (let i = 0; i < dataFile.length; i++) {
 			currUserData = {
@@ -78,19 +87,47 @@
 			psychopathyValues.push(currUserData);
 		}
 
-		checkIdenticalValues(dataFile);
-		// console.log('after algo')
+		getIdenticalValues(dataFile);
 
-		return { psychopathyValues };
+		return psychopathyValues;
 	}
 
-	// Merges all users with the same same coordinates.
-	function mergeSameCoords() {}
+	/**
+	 * Merges users with the exact same coordinates.
+	 * @param dataSet
+	 * @returns - The list of merged names with coordinates.
+	 */
+	function mergeUsers(dataSet: [UserData, UserData][]): UserData[] {
+		let currUserDate: UserData;
+		const mergedUsers: UserData[] = [];
+		for (let i = 0; i < dataSet.length; i++) {
+			currUserDate = {
+				user: dataSet[i][0].user + ' & \n' + dataSet[i][1].user,
+				x: dataSet[i][0].x,
+				y: dataSet[i][0].y
+			};
+			mergedUsers.push(currUserDate);
+		}
+		return mergedUsers;
+	}
 
-	// Checks if multiple users have the same coordinates
-	// Returns a list of tuples with the same coordinates
-	function checkIdenticalValues(dataSet: any[]) {
-		let sameCoords: [UserData, UserData][] = [];
+	/**
+	 * Removes all entries that have the exact same coordinates.
+	 * Returns a list without multiple entries with the same coordinates.
+	 * @param dataSet
+	 * @param sameCoords
+	 */
+	function removeIdenticalValues(dataSet: any[], sameCoords: [UserData, UserData][]) {
+		dataSet.entries
+	}
+	/**
+	 * Checks if multiple users have the same coordinates.
+	 * Returns a list of tuples with the same coordinates.
+	 * @param dataSet - Set of data that contains the names and their psychopathy scores (coordinates).
+	 * @returns - Set of UserData tuples. Each set contains the names and coordinates of the entries with the same coordinates.
+	 */
+	function getIdenticalValues(dataSet: any[]): [UserData, UserData][] {
+		const sameCoords: [UserData, UserData][] = [];
 		for (let i = 0; i < dataSet.length; i++) {
 			for (let j = i + 1; j < dataSet.length; j++) {
 				if (
@@ -98,15 +135,20 @@
 					comparator(dataSet[i].coords[1], dataSet[j].coords[1])
 				) {
 					sameCoords.push([dataSet[i], dataSet[j]]);
-					console.log(sameCoords);
 				}
 			}
 		}
 		return sameCoords;
 	}
 
-	function comparator(operant1: any, operant2: any) {
-		return operant1 == operant2 ? true : false;
+	/**
+	 * Compares two elements and checks if they are equal.
+	 * @param operand1 - First operand to compare with.
+	 * @param operand2 - Second operand to compare to.
+	 * @returns - Returns true if the elements are equal; false if not equal.
+	 */
+	function comparator(operand1: any, operand2: any): boolean {
+		return operand1 == operand2 ? true : false;
 	}
 </script>
 
