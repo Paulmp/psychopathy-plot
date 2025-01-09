@@ -17,7 +17,7 @@
 			data: {
 				datasets: [
 					{
-						label: 'Lonercord User',
+						label: '',
 						data: preparedData,
 						borderWidth: 1
 					}

@@ -26,7 +26,7 @@
 				labels: preparedData.label,
 				datasets: [
 					{
-						label: 'Users',
+						label: '',
 						data: preparedData.userHz,
 						borderWidth: 1,
 					}
