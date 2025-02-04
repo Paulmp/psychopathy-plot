@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import voicecel from '$lib/data/voicecel.json';
 	import { Colors, Chart } from 'chart.js/auto';
+	import type { VoicecelData } from '../../../types/customTypes';
 
 	let { data }: { data: PageData } = $props();
 
@@ -28,27 +29,27 @@
 					{
 						label: '',
 						data: preparedData.userHz,
-						borderWidth: 1,
+						borderWidth: 1
 					}
-				],
+				]
 			},
 			options: {
 				plugins: {
-                    legend: {
-                        labels: {
-                            color: 'white' // Change the color of the legend text
-                        }
-                    },
+					legend: {
+						labels: {
+							color: 'white' // Change the color of the legend text
+						}
+					},
 					datalabels: {
-            color: 'white', // Change the color of the numbers
-            font: {
-              size: 14,    // Customize the font size
-              weight: 'bold'
-            },
-            anchor: 'end', // Positioning (start, center, end)
-            align: 'top'   // Alignment (left, center, right, top, bottom)
-          }
-                },
+						color: 'white', // Change the color of the numbers
+						font: {
+							size: 14, // Customize the font size
+							weight: 'bold'
+						},
+						anchor: 'end', // Positioning (start, center, end)
+						align: 'top' // Alignment (left, center, right, top, bottom)
+					}
+				},
 				scales: {
 					y: {
 						beginAtZero: true,
@@ -66,6 +67,19 @@
 			}
 		});
 	});
+
+	function sortHighestHz(data: any): VoicecelData[] {
+		const highestVal: VoicecelData[] = [];
+
+		return highestVal;
+	}
+
+	function sortSmallestHz(data: any): VoicecelData[] {
+		const highestVal: VoicecelData[] = [];
+
+		return highestVal;
+	}
+
 </script>
 
 <h2 class="mt-4 px-5 text-2xl font-bold text-white">Voicecel Graph</h2>

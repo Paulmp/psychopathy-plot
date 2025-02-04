@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import type { UserData } from '../../../types/psychopathyTypes';
+	import type { UserData } from '../../../types/customTypes'
 	import { onMount } from 'svelte';
 	import psychopathy from '$lib/data/dataFile.json';
 	import * as d3 from 'd3';

@@ -82,5 +82,9 @@
     {
         "name": "strongdoctor",
         "hz": 137
+    },
+    {
+        "name": "hangnails",
+        "hz": 243
     }
 ]
